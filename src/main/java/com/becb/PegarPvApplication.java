@@ -4,9 +4,11 @@ package com.becb;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,7 +24,13 @@ public class PegarPvApplication {
 	
 	public static void main(String[] args) {
 		argumentos = args;
-		SpringApplication.run(PegarPvApplication.class, args);		
+		ConfigurableApplicationContext ctx = SpringApplication.run(PegarPvApplication.class, args);		
+		 int exitCode = SpringApplication.exit(ctx, new ExitCodeGenerator() {
+	           public int getExitCode() {
+	               return 0;
+	           }
+	       });
+	       System.exit(exitCode);
 		
 	}
 	
